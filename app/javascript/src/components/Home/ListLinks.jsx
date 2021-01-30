@@ -27,28 +27,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const getShortUrlLink = (slug) => (
-  <Link
-    target="_blank"
-    rel="noreferrer"
-    href={`http://localhost:3000/${slug}`}
-  >{`http://localhost:3000/${slug}`}</Link>
-);
-
-const handlePin = async (slug, pinned) => {
-  try {
-    const response = await linksApi.update({
-      slug,
-      payload: { link: { pinned: !pinned } },
-    });
-    console.log(response, "response from update pin");
-  } catch (error) {
-    console.log(error, "error from update pin");
-  }
-};
-
-const ListLinks = ({ links }) => {
+const ListLinks = ({ links, fetchLinks }) => {
   const classes = useStyles();
+
+  const getShortUrlLink = (slug) => (
+    <Link
+      target="_blank"
+      rel="noreferrer"
+      href={"/"+ slug}
+    >
+      {window.location.hostname + "/" + slug}
+    </Link>
+  );
+
+  const handlePin = async (slug, pinned) => {
+    try {
+      const response = await linksApi.update({
+        slug,
+        payload: { link: { pinned: !pinned } },
+      });
+      console.log(response, "response from update pin");
+      fetchLinks();
+    } catch (error) {
+      console.log(error, "error from update pin");
+    }
+  };
 
   console.log(links, "from linklist");
 

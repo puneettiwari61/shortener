@@ -61,6 +61,8 @@ const Home = () => {
     try {
       const response = await linksApi.create({ link: { url } });
       console.log(response, "response from create link");
+      setUrl("");
+      fetchLinks();
     } catch (error) {
       console.log(error, "error from create link");
     }
@@ -73,9 +75,9 @@ const Home = () => {
         <Avatar className={classes.avatar}>
           <HttpIcon />
         </Avatar>
-        {/* <Typography component="h1" variant="h5">
-          Sign in
-        </Typography> */}
+        <Typography component="h1" variant="h2">
+          URL Shortener
+        </Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
@@ -89,6 +91,7 @@ const Home = () => {
             autoFocus
             onChange={(e) => setUrl(e.target.value)}
             value={url}
+            placeholder="Shorten your link"
           />
           <Button
             type="submit"
@@ -101,7 +104,7 @@ const Home = () => {
           </Button>
         </form>
       </div>
-      <ListLinks links={links} />
+      <ListLinks fetchLinks={fetchLinks} links={links} />
     </Container>
   );
 };

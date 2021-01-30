@@ -2,7 +2,7 @@ class LinksController < ApplicationController
   before_action :find_link, only: %i[show update]
 
   def index
-    links = Link.all
+    links = Link.order("pinned DESC, updated_at DESC")
     render status: :ok, json: { links: links }
   end
 
