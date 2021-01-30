@@ -6,7 +6,7 @@ class Link < ActiveRecord::Base
 
   def generate_slug
     loop do
-      self.slug = [*("a".."z"), *("0".."9")].shuffle[0, 8].join
+      self.slug = [*("a".."z"), *("0".."9")].shuffle[0, 6].join
       break slug unless Link.where(slug: self.slug).exists?
     end
   end

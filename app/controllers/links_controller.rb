@@ -22,12 +22,17 @@ class LinksController < ApplicationController
   end
 
   def update
+    if @link.update(url_params)
+      render status: :ok, json: { notice: "Link was successfully updated" }
+    else
+      render status: :unprocessable_entity, json: { errors: @link.errors.full_messages }
+    end
   end
 
   private
 
   def url_params
-    params.require(:link).permit(:url)
+    params.require(:link).permit(:url, :pinned)
   end
 
   def find_link
