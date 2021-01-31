@@ -36,7 +36,7 @@ class LinksController < ApplicationController
   end
 
   def find_link
-    @link = Link.find_by(slug: params[:slug])
+    @link = Link.find_by!(slug: params[:slug])
     puts "#{@link} from load link"
   rescue ActiveRecord::RecordNotFound => errors
     render status: :not_found, json: { errors: errors }
